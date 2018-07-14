@@ -43,7 +43,7 @@ public class MyClass {
         }
         if(n.length==2)
         {
-            return n[n.length-2];
+            return Math.max(n[n.length-1],n[n.length-2]);
         }
         if(n.length==3)
         {
