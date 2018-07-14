@@ -1,0 +1,69 @@
+Mario wants to reach to his princess who is waiting for him in a castle. But the way to the castle is full of dragons. Each dragon is an enemy of the dragon who is located just before him on that path. The dragons in this world are quite peculiar. They have some number of diamonds each. Although they are dragons, they won't burn, instead they will give Mario their diamonds, but if and only if, Mario didn't take any diamonds from the dragon standing directly before the current one. If Mario does, then that dragon will burn him. Mario is in your control. You have to make Mario collect maximum number of diamonds for his princess and reach castle safely.
+
+Input- Each test case starts with a number N, the number of dragons, 0 <= N <= 10^4. The next line will have N numbers, number of diamonds each dragon has, 0 <= The number of diamonds with each dragon <= 10^9. Dragons described in the order they are encountered on the way to the castle.
+
+Output- Print the maximum number of diamonds you can collect (and reach to castle safely).
+
+Sample Input
+
+
+5 1 2 3 4 5
+
+Sample Output
+
+
+9
+
+Explanation
+
+Input - 5 ==> Represents number of Dragons 1 2 3 4 5 ==> Represents the diamonds each of the Dragon has consecutively. The first dragon has 1 , the second has 2 and so on....
+
+Output- 9
+
+Explanation- If Mario collects diamonds from 1st, 3rd and 5th dragon (1+3+5). He will get 9 diamonds which is the maximum number of diamonds he can collect. Two of the other possible ways in which he can collect diamonds is, from 2nd and 4th dragon, (2+4),i.e.(6) or from 2nd and 5th dragon (2+5) i.e.,7 . He can’t obtain more than 9 diamonds in any case.
+
+Therefore the output would be 9, the maximum he can collect.
+
+-----------------------------------------------------------------------------------------------------------------
+Solution JAVA Based Approach:
+
+````
+public class MyClass {
+    public static void main(String args[]) {
+        int n[]=new int[]{5, 5, 10, 100, 10, 5};
+        System.out.println(helper(n));
+    }
+    public static int helper(int[]n)
+    {
+        
+        int dp[]=new int[n.length];
+        if(n.length==1)
+        {
+            return n[n.length-1];
+        }
+        if(n.length==2)
+        {
+            return n[n.length-2];
+        }
+        if(n.length==3)
+        {
+            return Math.max(n[n.length-3]+n[n.length-1],n[n.length-2]);
+        }
+        dp[n.length-1]=n[n.length-1];
+        dp[n.length-2]=n[n.length-2];
+        dp[n.length-3]=n[n.length-3]+n[n.length-1];
+        for(int i=n.length-4;i>=0;i--)
+        {
+            dp[i]=n[i]+Math.max(dp[i+2],dp[i+3]);
+            
+        }
+        int result=0;
+        for(int i=0;i<dp.length;i++)
+        {
+            result=Math.max(dp[i],result);
+        }
+        return result;
+    }
+}
+
+````
